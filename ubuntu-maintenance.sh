@@ -6,7 +6,7 @@ NOCOLOR='\033[0m'
 
 echo -e "${GREEN} ..................... Starting updates..................... ${NOCOLOR}"
 
-sudo apt update && sudo apt upgrade
+sudo apt update && sudo apt upgrade -y
 
 echo -e "${BLUE} ---------------------------------------------------- ${NOCOLOR}"
 
