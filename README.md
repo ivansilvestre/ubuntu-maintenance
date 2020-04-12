@@ -1,4 +1,4 @@
-Ubuntu maintenance script
+<strong>Ubuntu maintenance script...</strong>
 
-to run:  
-  bash ubuntu-maintenance.sh
+<strong>to run:</strong><br>  
+<em>bash ubuntu-maintenance.sh</em>
