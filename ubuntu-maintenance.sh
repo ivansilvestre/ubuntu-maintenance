@@ -20,7 +20,7 @@ cleaning () {
     echo    
         echo -e "${BLUE} ..................... Cleaning ..................... ${NOCOLOR}"
     echo
-        sudo apt autoremove && sudo apt autoclean
+        sudo apt autoremove -y && sudo apt autoclean -y
     echo
         echo -e "${BLUE} ..................... All Done ..................... ${NOCOLOR}" 
 }
@@ -44,7 +44,7 @@ cleaning
 
 echo
 echo -e "${GREEN}
-    What do you want to do now? 
+    What do you want to do? 
 
     ${NOCOLOR}Reboot${GREEN}: press ${NOCOLOR}r${GREEN} and ${NOCOLOR}Enter${GREEN};
     ${NOCOLOR}Poweroff${GREEN}: press ${NOCOLOR}p${GREEN} and ${NOCOLOR}Enter${GREEN};
