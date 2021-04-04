@@ -14,6 +14,7 @@ update () {
         echo -e "${BLUE} ---------------------------------------------------- ${NOCOLOR}"
     echo
         sudo snap refresh
+        flatpak update
 }
 
 cleaning () { 
