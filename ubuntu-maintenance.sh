@@ -14,14 +14,13 @@ update () {
         echo -e "${BLUE} ---------------------------------------------------- ${NOCOLOR}"
     echo
         sudo snap refresh
-        flatpak update
 }
 
 cleaning () { 
     echo    
         echo -e "${BLUE} ..................... Cleaning ..................... ${NOCOLOR}"
     echo
-        sudo apt autoremove -y && sudo apt autoclean -y
+        sudo apt autoremove && sudo apt autoclean -y
     echo
         echo -e "${BLUE} ..................... All Done ..................... ${NOCOLOR}" 
 }
