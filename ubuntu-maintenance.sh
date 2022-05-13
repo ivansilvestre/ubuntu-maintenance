@@ -4,7 +4,6 @@ GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 NOCOLOR='\033[0m'
 
-
 update () {
     echo
         echo -e "${BLUE} .................. Starting updates................. ${NOCOLOR}"
