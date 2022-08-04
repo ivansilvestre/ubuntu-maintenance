@@ -1,14 +1,18 @@
 #!/bin/bash
 
+# ----------------------------- VARIABLES ----------------------------- #
+
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 NOCOLOR='\033[0m'
+
+# ----------------------------- FUNCTIONS LOGIC ----------------------------- #
 
 update () {
     echo
         echo -e "${BLUE} .................. Starting updates................. ${NOCOLOR}"
     echo
-        sudo apt update && sudo apt upgrade -y
+        sudo apt update && sudo apt dist-upgrade -y
     echo
         echo -e "${BLUE} ---------------------------------------------------- ${NOCOLOR}"
     echo
@@ -37,6 +41,8 @@ options (){
         echo
     fi
 }
+
+# ----------------------------- FUNCTIONS ----------------------------- #
 
 update
 
