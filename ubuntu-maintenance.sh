@@ -12,7 +12,7 @@ update () {
     echo
         echo -e "${BLUE} .................. Starting updates................. ${NOCOLOR}"
     echo
-        sudo apt update && sudo apt dist-upgrade -y
+        sudo apt update && sudo apt upgrade -y
     echo
         echo -e "${BLUE} ---------------------------------------------------- ${NOCOLOR}"
     echo
@@ -24,7 +24,7 @@ cleaning () {
     echo    
         echo -e "${BLUE} ..................... Cleaning ..................... ${NOCOLOR}"
     echo
-        sudo apt autoremove && sudo apt autoclean -y
+        sudo apt autoremove && sudo apt clean -y
     echo
         echo -e "${BLUE} ..................... All Done ..................... ${NOCOLOR}" 
 }
