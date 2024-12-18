@@ -1,35 +1,55 @@
 #!/bin/bash
 
-# ----------------------------- VARIABLES ----------------------------- #
+# Exit on error
+set -e 
 
-GREEN='\033[0;32m'
-BLUE='\033[0;34m'
-NOCOLOR='\033[0m'
+# ----------------------------- COLORS ----------------------------- #
+
+readonly GREEN='\033[0;32m'
+readonly BLUE='\033[0;34m' 
+readonly RED='\033[0;31m'
+readonly NOCOLOR='\033[0m'
 
 # ----------------------------- FUNCTIONS LOGIC ----------------------------- #
 
-update () {
-    echo
-        echo -e "${BLUE} .................. Starting updates................. ${NOCOLOR}"
-    echo
-        sudo apt update && sudo apt upgrade -y
-    echo
-        echo -e "${BLUE} ---------------------------------------------------- ${NOCOLOR}"
-    echo
+system_update() {
+    print_message "$BLUE" "Starting system updates..."
+    
+    if ! sudo apt update && sudo apt upgrade -y; then
+        print_message "$RED" "Error during APT update/upgrade"
+        return 1
+    fi
+    
+    if command -v snap >/dev/null; then
         sudo snap refresh
-        flatpak update
+    fi
+    
+    if command -v flatpak >/dev/null; then
+        flatpak update -y
+    fi
+    
+    print_message "$GREEN" "System updates completed successfully"
 }
 
-cleaning () { 
-    echo    
-        echo -e "${BLUE} ..................... Cleaning ..................... ${NOCOLOR}"
-    echo
-        sudo apt autoremove && sudo apt clean -y
-    echo
-        echo -e "${BLUE} ..................... All Done ..................... ${NOCOLOR}" 
+system_cleanup() {
+    print_message "$BLUE" "Starting system cleanup..."
+    
+    if ! sudo apt autoremove -y && sudo apt clean -y; then
+        print_message "$RED" "Error during system cleanup"
+        return 1
+    fi
+    
+    print_message "$GREEN" "System cleanup completed successfully"
 }
 
-options (){
+power_options (){
+    print_message "$BLUE" "Select power option:"
+    echo -e "${GREEN}[r]${NOCOLOR} Reboot"
+    echo -e "${GREEN}[p]${NOCOLOR} Power off"
+    echo -e "${GREEN}[Enter]${NOCOLOR} Stay in terminal"
+
+    read -r answer
+
     if [[ $answer == 'r' ]]
         then
         reboot
@@ -42,21 +62,20 @@ options (){
     fi
 }
 
-# ----------------------------- FUNCTIONS ----------------------------- #
+# ----------------------------- HELPER FUNCTIONS ----------------------------- #
 
-update
+print_message() {
+    local color=$1
+    local message=$2
+    printf "${color}%s${NOCOLOR}\n" "$message"
+}
 
-cleaning
+# ----------------------------- MAIN EXECUTION ----------------------------- #
 
-echo
-echo -e "${GREEN}
-    What do you want to do? 
+main() {
+    system_update
+    system_cleanup
+    power_options
+}
 
-    ${NOCOLOR}Reboot${GREEN}: press ${NOCOLOR}r${GREEN} and ${NOCOLOR}Enter${GREEN};
-    ${NOCOLOR}Poweroff${GREEN}: press ${NOCOLOR}p${GREEN} and ${NOCOLOR}Enter${GREEN};
-    ${NOCOLOR}Stay in command Line${GREEN}: press ${NOCOLOR}Enter${GREEN}; 
-    ${NOCOLOR}"
-    
-read answer;
-
-options
+main
