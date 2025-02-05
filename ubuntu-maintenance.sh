@@ -31,6 +31,21 @@ system_update() {
     print_message "$GREEN" "System updates completed successfully"
 }
 
+update_system_components() {
+    print_message "$BLUE" "Checking for system component updates..."
+    
+    if command -v ubuntu-drivers >/dev/null; then
+        if sudo ubuntu-drivers autoinstall; then
+            print_message "$GREEN" "System components updated successfully"
+        else
+            print_message "$RED" "Error updating system components"
+            return 1
+        fi
+    else
+        print_message "$BLUE" "ubuntu-drivers not found. Skipping system component update."
+    fi
+}
+
 system_cleanup() {
     print_message "$BLUE" "Starting system cleanup..."
     
@@ -74,6 +89,7 @@ print_message() {
 
 main() {
     system_update
+    update_system_components
     system_cleanup
     power_options
 }
